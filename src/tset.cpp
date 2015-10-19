@@ -27,7 +27,7 @@ TSet::TSet(const TBitField &bf) : BitField(bf)
 
 TSet::operator TBitField()
 {
-	TBitField bf(BitField);
+	TBitField bf(this->BitField);
   return bf;
 }
 

@@ -288,10 +288,56 @@ TEST(TSet, check_negation_operator)
   // set1 = {1, 3}
   set.InsElem(1);
   set.InsElem(3);
-  set1 = ~set;
+  //set1 = ~set;
   // expSet = {0, 2}
   expSet.InsElem(0);
   expSet.InsElem(2);
 
-  EXPECT_EQ(expSet, set1);
+  EXPECT_EQ(expSet, ~set);
+}
+
+TEST(TSet, sequence_change)
+{
+	TSet set1(4), set2(6), set3(4), set4(5), expSet(5);
+
+	//set1={1,2,3}
+	set1.InsElem(1);
+	set1.InsElem(2);
+	set1.InsElem(3);
+
+	//set2={0,1,3,5}
+	set2.InsElem(0);
+	set2.InsElem(1);
+	set2.InsElem(3);
+	set2.InsElem(5);
+	
+	TSet expinter(6);
+	expinter.InsElem(1);
+	expinter.InsElem(3);
+	cout << set1 * set2 << (set1 * set2).GetMaxPower() << endl;
+
+	//set3={2}
+	set3.InsElem(2);
+
+	TSet expcomb(6);
+	expcomb.InsElem(1);
+	expcomb.InsElem(2);
+	expcomb.InsElem(3);
+	cout << (set1 * set2) + set3 << ((set1 * set2) + set3).GetMaxPower() << endl;
+
+	//set4={1,2,3}
+	set4.InsElem(1);
+	set4.InsElem(2);
+	set4.InsElem(3);
+	cout << ~set4 << (~set4).GetMaxPower() << endl;
+
+	//expSet={0,1,2,3,4}
+	expSet.InsElem(0);
+	expSet.InsElem(1);
+	expSet.InsElem(2);
+	expSet.InsElem(3);
+	expSet.InsElem(4);
+	cout << (((set1 * set2) + set3) + (~set4)) << (((set1 * set2) + set3) + (~set4)).GetMaxPower() << endl;
+  EXPECT_EQ(expSet, (((set1 * set2) + set3) + (~set4)) );
+
 }

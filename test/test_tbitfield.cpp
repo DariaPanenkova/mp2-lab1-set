@@ -238,6 +238,20 @@ TEST(TBitField, can_invert_bitfield)
 
   EXPECT_EQ(expNegBf, negBf);
 }
+TEST(TBitField, can_invert_bitfield1)
+{
+  const int size = 2;
+  TBitField bf(size), negBf(size), expNegBf(size);
+  // bf = 11
+  bf.SetBit(0);
+  bf.SetBit(1);
+  negBf = ~bf;
+
+  // expNegBf = 10
+  //expNegBf.SetBit(0);
+
+  EXPECT_EQ(expNegBf, negBf);
+}
 
 TEST(TBitField, can_invert_large_bitfield)
 {
@@ -291,4 +305,56 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
   bf2.SetBit(2);
 
   EXPECT_NE(bf1, bf2);
+}
+TEST(TBitField, equality_after_change)
+{
+  TBitField bf1(50), bf2(40), temp(42), temp1(50);
+  bf1.SetBit(1);
+  bf1.SetBit(30);
+  bf1.SetBit(35);
+  bf1.SetBit(49);
+
+  bf2.SetBit(0);
+  bf2.SetBit(1);
+  bf2.SetBit(30);
+  bf2.SetBit(33);
+
+  temp.SetBit(1);
+  temp.SetBit(30);
+  temp.SetBit(35);
+  
+  temp1.SetBit(35);
+  temp1.SetBit(49);
+
+  bf2 = bf2 & temp;
+  bf2 = bf2 | temp1;
+
+  EXPECT_EQ(1, bf1 == bf2);
+}
+
+TEST(TBitField, enquality_after_change)
+{
+  TBitField bf1(50), bf2(40), temp(42), temp1(50);
+  bf1.SetBit(1);
+  bf1.SetBit(30);
+  bf1.SetBit(35);
+  bf1.SetBit(49);
+
+  bf2.SetBit(0);
+  bf2.SetBit(1);
+  bf2.SetBit(30);
+  bf2.SetBit(33);
+
+  temp.SetBit(1);
+  temp.SetBit(30);
+  temp.SetBit(35);
+  
+  temp1.SetBit(35);
+  temp1.SetBit(48);
+
+  bf2 = bf2 & temp;
+  bf2 = bf2 | temp1;
+  
+
+  EXPECT_EQ(1, bf1 != bf2);
 }
