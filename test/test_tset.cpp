@@ -298,7 +298,7 @@ TEST(TSet, check_negation_operator)
 
 TEST(TSet, sequence_change)
 {
-	TSet set1(4), set2(6), set3(4), set4(5), expSet(5);
+	TSet set1(4), set2(6), set3(4), set4(5), expSet(6);
 
 	//set1={1,2,3}
 	set1.InsElem(1);
@@ -314,7 +314,6 @@ TEST(TSet, sequence_change)
 	TSet expinter(6);
 	expinter.InsElem(1);
 	expinter.InsElem(3);
-	cout << set1 * set2 << (set1 * set2).GetMaxPower() << endl;
 
 	//set3={2}
 	set3.InsElem(2);
@@ -323,13 +322,11 @@ TEST(TSet, sequence_change)
 	expcomb.InsElem(1);
 	expcomb.InsElem(2);
 	expcomb.InsElem(3);
-	cout << (set1 * set2) + set3 << ((set1 * set2) + set3).GetMaxPower() << endl;
 
 	//set4={1,2,3}
 	set4.InsElem(1);
 	set4.InsElem(2);
 	set4.InsElem(3);
-	cout << ~set4 << (~set4).GetMaxPower() << endl;
 
 	//expSet={0,1,2,3,4}
 	expSet.InsElem(0);
@@ -337,7 +334,7 @@ TEST(TSet, sequence_change)
 	expSet.InsElem(2);
 	expSet.InsElem(3);
 	expSet.InsElem(4);
-	cout << (((set1 * set2) + set3) + (~set4)) << (((set1 * set2) + set3) + (~set4)).GetMaxPower() << endl;
+
   EXPECT_EQ(expSet, (((set1 * set2) + set3) + (~set4)) );
 
 }

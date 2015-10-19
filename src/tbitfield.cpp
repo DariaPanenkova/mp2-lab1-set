@@ -188,10 +188,17 @@ TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 
 TBitField TBitField::operator~(void) // отрицание
 {
+	
 	int len=BitLen;
 	TBitField bf2(len);
-	for(int i=0; i < MemLen; i++)
+	for(int i=0; i < (MemLen-1); i++)
 		bf2.pMem[i] = ~pMem[i];
+
+	for (int i = (MemLen-1)*sizeof(TELEM); i < BitLen; i++)
+	{
+		if ((*this).GetBit(i) == 0)
+			bf2.SetBit(i);
+	}
 	return bf2;
 }
 
